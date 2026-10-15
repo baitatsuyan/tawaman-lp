@@ -1,0 +1,5 @@
+# GitHub 連携時の Netlify ビルド設定。
+# 公開用ファイルだけを dist/ に集めて配信する（README や tools/ は公開しない）。
+[build]
+  command = "python3 tools/build.py"
+  publish = "dist"
