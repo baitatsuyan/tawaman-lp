@@ -262,12 +262,16 @@
     </div>
 
     <form class="tool-card" data-loan novalidate>
-      <h3>住宅ローンのかんたん試算</h3>
+      <h3>いまの年収で、いくらの物件が買える？</h3>
       <div class="loan">
         <div class="loan-inputs">
           <div class="field">
-            <label for="l-amount">借入額</label>
-            <div class="unit-input"><input id="l-amount" name="amount" type="number" inputmode="decimal" min="0" step="100" value="6000"><span>万円</span></div>
+            <label for="l-income">年収（税込）</label>
+            <div class="unit-input"><input id="l-income" name="income" type="number" inputmode="decimal" min="0" step="50" value="1200"><span>万円</span></div>
+          </div>
+          <div class="field">
+            <label for="l-cash">自己資金</label>
+            <div class="unit-input"><input id="l-cash" name="cash" type="number" inputmode="decimal" min="0" step="100" value="1000"><span>万円</span></div>
           </div>
           <div class="field">
             <label for="l-rate">金利（年）</label>
@@ -275,21 +279,21 @@
           </div>
           <div class="field">
             <label for="l-years">返済期間</label>
-            <div class="unit-input"><input id="l-years" name="years" type="number" inputmode="numeric" min="1" max="50" step="1" value="35"><span>年</span></div>
+            <div class="unit-input"><input id="l-years" name="years" type="number" inputmode="decimal" min="0" step="1" value="35" max="50"><span>年</span></div>
           </div>
           <div class="field">
-            <label for="l-income">年収<span class="opt">任意</span></label>
-            <div class="unit-input"><input id="l-income" name="income" type="number" inputmode="decimal" min="0" step="50" value="1200"><span>万円</span></div>
+            <label for="l-ratio">返済負担率</label>
+            <div class="unit-input"><select id="l-ratio" name="ratio"><option value="20">20</option><option value="25" selected>25</option><option value="30">30</option><option value="35">35</option></select><span>%</span></div>
           </div>
         </div>
         <dl class="loan-result" aria-live="polite">
-          <div class="is-main"><dt>毎月の返済額</dt><dd><output data-out="monthly">—</output>円</dd></div>
-          <div><dt>総返済額</dt><dd><output data-out="total">—</output>万円</dd></div>
-          <div><dt>うち利息</dt><dd><output data-out="interest">—</output>万円</dd></div>
-          <div><dt>返済負担率（年収比）</dt><dd><output data-out="ratio">—</output>%</dd></div>
+          <div class="is-main"><dt>購入できる物件価格の目安</dt><dd><output data-out="price">—</output>万円</dd></div>
+          <div><dt>借入額の目安</dt><dd><output data-out="loan">—</output>万円</dd></div>
+          <div><dt>毎月の返済額</dt><dd><output data-out="monthly">—</output>円</dd></div>
+          <div><dt>年収倍率（借入額）</dt><dd><output data-out="multiple">—</output>倍</dd></div>
         </dl>
       </div>
-      <p class="tool-note">元利均等返済・固定金利・ボーナス返済なしとした場合の目安です。金利は入力例で、実際の金利・借入の可否・返済額は金融機関の審査と商品によって異なります。融資の可否や条件をお約束するものではありません。</p>
+      <p class="tool-note">年収×返済負担率を年間の返済額の上限とし、元利均等返済・固定金利・ボーナス返済なしで借入額を逆算しています。物件価格は「借入額＋自己資金」から諸費用（物件価格の約7%と仮定）を差し引いた目安です。金融機関の審査では実際の金利より高い「審査金利」で計算されることが多く、ほかの借入・勤続年数・在留資格・物件の評価によっても借入額は変わります。融資の可否や条件をお約束するものではありません。</p>
     </form>
 
     <!-- assets/data/market.json（tools/fetch_market.py で作成）が読めたときだけ表示 -->

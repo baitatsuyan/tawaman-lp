@@ -262,12 +262,16 @@
     </div>
 
     <form class="tool-card" data-loan novalidate>
-      <h3>주택담보대출 간단 계산</h3>
+      <h3>지금 연소득으로 얼마짜리 집을 살 수 있을까?</h3>
       <div class="loan">
         <div class="loan-inputs">
           <div class="field">
-            <label for="l-amount">대출 금액</label>
-            <div class="unit-input"><input id="l-amount" name="amount" type="number" inputmode="decimal" min="0" step="100" value="6000"><span>만 엔</span></div>
+            <label for="l-income">연소득 (세전)</label>
+            <div class="unit-input"><input id="l-income" name="income" type="number" inputmode="decimal" min="0" step="50" value="1200"><span>만 엔</span></div>
+          </div>
+          <div class="field">
+            <label for="l-cash">자기 자금</label>
+            <div class="unit-input"><input id="l-cash" name="cash" type="number" inputmode="decimal" min="0" step="100" value="1000"><span>만 엔</span></div>
           </div>
           <div class="field">
             <label for="l-rate">금리 (연)</label>
@@ -275,21 +279,21 @@
           </div>
           <div class="field">
             <label for="l-years">상환 기간</label>
-            <div class="unit-input"><input id="l-years" name="years" type="number" inputmode="numeric" min="1" max="50" step="1" value="35"><span>년</span></div>
+            <div class="unit-input"><input id="l-years" name="years" type="number" inputmode="decimal" min="0" step="1" value="35" max="50"><span>년</span></div>
           </div>
           <div class="field">
-            <label for="l-income">연소득<span class="opt">선택</span></label>
-            <div class="unit-input"><input id="l-income" name="income" type="number" inputmode="decimal" min="0" step="50" value="1200"><span>만 엔</span></div>
+            <label for="l-ratio">상환 부담률</label>
+            <div class="unit-input"><select id="l-ratio" name="ratio"><option value="20">20</option><option value="25" selected>25</option><option value="30">30</option><option value="35">35</option></select><span>%</span></div>
           </div>
         </div>
         <dl class="loan-result" aria-live="polite">
-          <div class="is-main"><dt>월 상환액</dt><dd><output data-out="monthly">—</output>엔</dd></div>
-          <div><dt>총상환액</dt><dd><output data-out="total">—</output>만 엔</dd></div>
-          <div><dt>그중 이자</dt><dd><output data-out="interest">—</output>만 엔</dd></div>
-          <div><dt>상환 부담률 (연소득 대비)</dt><dd><output data-out="ratio">—</output>%</dd></div>
+          <div class="is-main"><dt>살 수 있는 매물 가격 (예상)</dt><dd><output data-out="price">—</output>만 엔</dd></div>
+          <div><dt>대출 금액 (예상)</dt><dd><output data-out="loan">—</output>만 엔</dd></div>
+          <div><dt>월 상환액</dt><dd><output data-out="monthly">—</output>엔</dd></div>
+          <div><dt>연소득 대비 대출 배율</dt><dd><output data-out="multiple">—</output>배</dd></div>
         </dl>
       </div>
-      <p class="tool-note">일본 금융기관의 엔화 대출을 원리금균등상환·고정금리·보너스 상환 없음으로 가정한 참고용 계산입니다. 금리는 입력 예시이며, 실제 금리와 대출 가능 여부, 상환액은 금융기관의 심사와 상품에 따라 다릅니다. 대출 가능 여부나 조건을 약속하는 것이 아닙니다.</p>
+      <p class="tool-note">일본 금융기관의 엔화 대출을 가정했습니다. 연소득 × 상환 부담률을 연간 상환액의 상한으로 보고, 원리금균등상환·고정금리·보너스 상환 없음으로 대출 금액을 역산했습니다. 매물 가격은 「대출 금액 + 자기 자금」에서 부대 비용(매물 가격의 약 7%로 가정)을 뺀 참고치입니다. 금융기관 심사에서는 실제 금리보다 높은 「심사 금리」로 계산하는 경우가 많고, 다른 대출·근속 연수·체류 자격·매물 평가에 따라서도 대출 금액이 달라집니다. 대출 가능 여부나 조건을 약속하는 것이 아닙니다.</p>
     </form>
 
     <!-- assets/data/market.json (tools/fetch_market.py 로 작성) 을 읽을 수 있을 때만 표시 -->

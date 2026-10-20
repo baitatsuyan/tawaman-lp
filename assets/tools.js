@@ -1,6 +1,6 @@
 /* ==========================================================================
    「数字で確かめる」欄（日本語版 / 韓国語版で共有）
-   - 住宅ローンのかんたん試算（元利均等・固定金利・ボーナス返済なし）
+   - 年収から買える物件価格の目安（返済負担率から借入額を逆算。元利均等・固定金利）
    - 勝どき・晴海・豊洲・有明の坪単価グラフ（assets/data/market.json を描画）
      market.json は tools/fetch_market.py で作る。読めなければ欄ごと非表示のまま。
    ========================================================================== */
@@ -19,26 +19,31 @@
       return isFinite(v) ? v : NaN;
     };
 
+    var COST_RATE = 0.07;   // 諸費用（物件価格に対する割合の仮定）
+
+    // 年収 × 返済負担率 を年間返済の上限として借入額を逆算し、
+    // （借入額 ＋ 自己資金）＝ 物件価格 ×（1 ＋ 諸費用率）から物件価格を出す
     var calc = function () {
-      var principal = num('amount') * 10000;   // 万円 → 円
+      var income = num('income') * 10000;      // 万円 → 円
+      var cash = Math.max(0, num('cash') || 0) * 10000;
       var rate = num('rate') / 100 / 12;        // 年利% → 月利
       var months = Math.round(num('years') * 12);
-      var income = num('income') * 10000;
+      var ratio = num('ratio') / 100;
 
-      var ok = principal > 0 && rate >= 0 && months > 0;
-      loan.classList.toggle('is-empty', !ok);
+      var ok = income > 0 && rate >= 0 && months > 0 && ratio > 0;
       if (!ok) {
-        ['monthly', 'total', 'interest', 'ratio'].forEach(function (k) { out(k).textContent = '—'; });
+        ['price', 'loan', 'monthly', 'multiple'].forEach(function (k) { out(k).textContent = '—'; });
         return;
       }
-      var monthly = rate === 0 ? principal / months
-        : principal * rate / (1 - Math.pow(1 + rate, -months));
-      var total = monthly * months;
+      var monthly = income * ratio / 12;
+      var principal = rate === 0 ? monthly * months
+        : monthly * (1 - Math.pow(1 + rate, -months)) / rate;
+      var price = (principal + cash) / (1 + COST_RATE);
 
+      out('price').textContent = fmt.format(Math.floor(price / 1e6) * 100);   // 100万円単位で切り捨て
+      out('loan').textContent = fmt.format(Math.floor(principal / 1e6) * 100);
       out('monthly').textContent = fmt.format(Math.round(monthly));
-      out('total').textContent = fmt.format(Math.round(total / 10000));
-      out('interest').textContent = fmt.format(Math.round((total - principal) / 10000));
-      out('ratio').textContent = income > 0 ? (monthly * 12 / income * 100).toFixed(1) : '—';
+      out('multiple').textContent = (principal / income).toFixed(1);
     };
 
     loan.addEventListener('input', calc);
