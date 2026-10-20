@@ -252,6 +252,115 @@
   </div>
 </section>
 
+<!-- ============================== 数字で確かめる（assets/tools.js） ============================== -->
+<section class="section" id="data">
+  <div class="wrap stack gap-42">
+    <div class="stack gap-16">
+      <p class="eyebrow">Data</p>
+      <h2 class="h2">数字で確かめる</h2>
+      <p class="lead">相談の前に、ご自身の数字で確かめてみてください。</p>
+    </div>
+
+    <form class="tool-card" data-loan novalidate>
+      <h3>いまの年収で、いくらの物件が買える？</h3>
+      <div class="loan">
+        <div class="loan-inputs">
+          <div class="field">
+            <label for="l-income">年収（税込）</label>
+            <div class="unit-input"><input id="l-income" name="income" type="number" inputmode="decimal" min="0" step="50" value="1200"><span>万円</span></div>
+          </div>
+          <div class="field">
+            <label for="l-cash">自己資金</label>
+            <div class="unit-input"><input id="l-cash" name="cash" type="number" inputmode="decimal" min="0" step="100" value="1000"><span>万円</span></div>
+          </div>
+          <div class="field">
+            <label for="l-rate">金利（年）</label>
+            <div class="unit-input"><input id="l-rate" name="rate" type="number" inputmode="decimal" min="0" step="0.05" value="1.0"><span>%</span></div>
+          </div>
+          <div class="field">
+            <label for="l-years">返済期間</label>
+            <div class="unit-input"><input id="l-years" name="years" type="number" inputmode="decimal" min="0" step="1" value="35" max="50"><span>年</span></div>
+          </div>
+          <div class="field">
+            <label for="l-ratio">返済負担率</label>
+            <div class="unit-input"><select id="l-ratio" name="ratio"><option value="20">20</option><option value="25" selected>25</option><option value="30">30</option><option value="35">35</option></select><span>%</span></div>
+          </div>
+        </div>
+        <dl class="loan-result" aria-live="polite">
+          <div class="is-main"><dt>購入できる物件価格の目安</dt><dd><output data-out="price">—</output>万円</dd></div>
+          <div><dt>借入額の目安</dt><dd><output data-out="loan">—</output>万円</dd></div>
+          <div><dt>毎月の返済額</dt><dd><output data-out="monthly">—</output>円</dd></div>
+          <div><dt>年収倍率（借入額）</dt><dd><output data-out="multiple">—</output>倍</dd></div>
+        </dl>
+      </div>
+      <p class="tool-note">年収×返済負担率を年間の返済額の上限とし、元利均等返済・固定金利・ボーナス返済なしで借入額を逆算しています。物件価格は「借入額＋自己資金」から諸費用（物件価格の約7%と仮定）を差し引いた目安です。金融機関の審査では実際の金利より高い「審査金利」で計算されることが多く、ほかの借入・勤続年数・在留資格・物件の評価によっても借入額は変わります。融資の可否や条件をお約束するものではありません。</p>
+    </form>
+
+    <form class="tool-card" data-rental novalidate>
+      <h3>一棟アパートを買ったら、毎年いくら残る？</h3>
+      <div class="loan">
+        <div class="loan-inputs">
+          <div class="field">
+            <label for="r-price">物件価格</label>
+            <div class="unit-input"><input id="r-price" name="price" type="number" inputmode="decimal" min="0" step="500" value="10000"><span>万円</span></div>
+          </div>
+          <div class="field">
+            <label for="r-cash">自己資金</label>
+            <div class="unit-input"><input id="r-cash" name="cash" type="number" inputmode="decimal" min="0" step="100" value="1000"><span>万円</span></div>
+          </div>
+          <div class="field">
+            <label for="r-yield">表面利回り</label>
+            <div class="unit-input"><input id="r-yield" name="yield" type="number" inputmode="decimal" min="0" step="0.1" value="6.0"><span>%</span></div>
+          </div>
+          <div class="field">
+            <label for="r-rate">金利（年）</label>
+            <div class="unit-input"><input id="r-rate" name="rate" type="number" inputmode="decimal" min="0" step="0.05" value="2.0"><span>%</span></div>
+          </div>
+          <div class="field">
+            <label for="r-years">返済期間</label>
+            <div class="unit-input"><input id="r-years" name="years" type="number" inputmode="decimal" min="0" step="1" value="30"><span>年</span></div>
+          </div>
+          <div class="field">
+            <label for="r-vacancy">空室率</label>
+            <div class="unit-input"><input id="r-vacancy" name="vacancy" type="number" inputmode="decimal" min="0" step="1" value="10"><span>%</span></div>
+          </div>
+          <div class="field">
+            <label for="r-expense">経費率（家賃収入比）</label>
+            <div class="unit-input"><input id="r-expense" name="expense" type="number" inputmode="decimal" min="0" step="1" value="20"><span>%</span></div>
+          </div>
+        </div>
+        <dl class="loan-result" aria-live="polite">
+          <div class="is-main"><dt>年間の手残り（税引前）</dt><dd><output data-out="cf">—</output>万円</dd></div>
+          <div><dt>月あたりの手残り</dt><dd><output data-out="cfm">—</output>万円</dd></div>
+          <div><dt>家賃収入（空室を考慮）</dt><dd><output data-out="rent">—</output>万円/年</dd></div>
+          <div><dt>経費</dt><dd><output data-out="cost">—</output>万円/年</dd></div>
+          <div><dt>ローン返済</dt><dd><output data-out="debt">—</output>万円/年</dd></div>
+          <div><dt>返済比率（返済÷家賃収入）</dt><dd><output data-out="dsr">—</output>%</dd></div>
+          <div><dt>実質利回り（経費控除後÷総投資額）</dt><dd><output data-out="noi">—</output>%</dd></div>
+          <div><dt>10年後のローン残高</dt><dd><output data-out="bal10">—</output>万円</dd></div>
+        </dl>
+      </div>
+      <p class="tool-note">家賃収入＝物件価格×表面利回り×（1−空室率）、経費＝家賃収入×経費率（管理費・修繕費・固定資産税・保険など）とした目安です。借入額は、物件価格に諸費用（約7%と仮定）を加えた額から自己資金を差し引いて計算しています（元利均等返済・固定金利）。所得税・住民税、家賃の下落、大規模修繕、金利の変動は含みません。将来の収益や融資の可否・条件をお約束するものではありません。</p>
+    </form>
+
+    <!-- assets/data/market.json（tools/fetch_market.py で作成）が読めたときだけ表示 -->
+    <div class="tool-card chart" data-market data-src="assets/data/market.json" hidden>
+      <h3>勝どき・晴海・豊洲・有明<br>中古マンションの坪単価</h3>
+      <ul class="chart-legend"></ul>
+      <p class="chart-unit">万円/坪（四半期ごとの中央値）</p>
+      <div class="chart-frame">
+        <div class="chart-plot"></div>
+        <div class="chart-tip" hidden></div>
+      </div>
+      <details class="chart-details">
+        <summary>表で見る</summary>
+        <div class="chart-table-wrap"><table class="chart-table"></table></div>
+      </details>
+      <p class="tool-note">出典：国土交通省 <a href="https://www.reinfolib.mlit.go.jp/" target="_blank" rel="noopener">不動産情報ライブラリ</a>。「不動産取引価格情報」「成約価格情報」（国土交通省）をもとに当サイトで作成（地区・四半期ごとに坪単価の中央値を算出。<span data-updated></span> 更新）。タワーマンションに限らず、各地区の中古マンション等の取引をすべて含みます。件数が3件未満の四半期は表示していません。過去の取引の集計であり、将来の価格を示すものではありません。このサービスは、国土交通省の不動産情報ライブラリのAPI機能を使用していますが、提供情報の最新性、正確性、完全性等が保証されたものではありません。</p>
+    </div>
+  </div>
+</section>
+
 <!-- ============================== 無料特典 ============================== -->
 <section class="band--soft" id="gift">
   <div class="wrap">
@@ -614,5 +723,6 @@
 </footer>
 
 <script src="assets/form.js" defer></script>
+<script src="assets/tools.js" defer></script>
 </body>
 </html>

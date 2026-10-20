@@ -9,11 +9,14 @@
 ├── assets/
 │   ├── style.css       共通スタイル（両言語で共有）
 │   ├── form.js         フォーム送信・特典ダウンロード
+│   ├── tools.js        「数字で確かめる」欄（住宅ローン試算・坪単価グラフ）
+│   ├── data/market.json 坪単価グラフのデータ（tools/fetch_market.py が作成）
 │   ├── dl/…/*.pdf      特典PDF（推測されにくいパス）
 │   ├── tower.jpg       プロフィール写真（タワーマンション）
 │   └── seminar-cover.jpg セミナー資料の表紙
 ├── tools/setup-google-form.gs  Google フォームの設問作成スクリプト
 ├── tools/build.py      公開用ファイルを dist/ に集める
+├── tools/fetch_market.py 坪単価グラフのデータを不動産情報ライブラリから取得
 ├── netlify.toml        Netlify のビルド設定（GitHub 連携時）
 ├── CLAUDE.md           Claude Code 向けの作業ルール
 └── README.md
@@ -80,6 +83,12 @@ python3 -m http.server 8000
 - レスポンシブのブレークポイントは1か所（`max-width: 1000px`）。それ以下は全グリッドが1カラムになります。
 - カラーは `:root` のCSS変数にまとめてあります。アクセント色は `--accent: #C0A667`。
 - フォーム送信・入力チェック・サンクス表示は `assets/form.js`（依存ライブラリなし）。Google フォームの設問は `tools/setup-google-form.gs` で作成します。
+- 「数字で確かめる」欄（`#data`）は `assets/tools.js`。「年収でいくらの物件が買えるか」の試算は、年収×返済負担率から借入額を逆算します（元利均等・固定金利、諸費用は物件価格の7%と仮定）。一棟アパートの収益シミュレーションは、表面利回り・空室率・経費率から税引前の手残りを出します（借入額＝物件価格×1.07−自己資金）。どちらもページ内だけで計算し、どこにも送信しません。
+- 坪単価グラフは `assets/data/market.json` を読んで描画します。ファイルがないとグラフ欄ごと非表示になります。データの更新は次のとおり（元データは四半期ごとの更新）。
+  ```
+  REINFOLIB_API_KEY=<不動産情報ライブラリのAPIキー> python3 tools/fetch_market.py
+  ```
+  APIキーは https://www.reinfolib.mlit.go.jp/ の「API利用申請」から無料で取得できます。グラフ下の出典・加工した旨・クレジット文は、不動産情報ライブラリの利用約款（出典の記載、第7条 クレジット表示）で求められているので消さないこと。
 - 動画は `youtube-nocookie.com` の埋め込みを使用。Cookie同意バナーを入れる場合はクリック後に読み込むファサード方式への変更を検討してください。
 
 ## 未実装・検討事項

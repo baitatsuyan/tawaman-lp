@@ -252,6 +252,115 @@
   </div>
 </section>
 
+<!-- ============================== 숫자로 확인하기 (assets/tools.js) ============================== -->
+<section class="section" id="data">
+  <div class="wrap stack gap-42">
+    <div class="stack gap-16">
+      <p class="eyebrow">Data</p>
+      <h2 class="h2">숫자로 확인하기</h2>
+      <p class="lead">상담 전에 직접 숫자를 넣어 확인해 보세요.</p>
+    </div>
+
+    <form class="tool-card" data-loan novalidate>
+      <h3>지금 연소득으로 얼마짜리 집을 살 수 있을까?</h3>
+      <div class="loan">
+        <div class="loan-inputs">
+          <div class="field">
+            <label for="l-income">연소득 (세전)</label>
+            <div class="unit-input"><input id="l-income" name="income" type="number" inputmode="decimal" min="0" step="50" value="1200"><span>만 엔</span></div>
+          </div>
+          <div class="field">
+            <label for="l-cash">자기 자금</label>
+            <div class="unit-input"><input id="l-cash" name="cash" type="number" inputmode="decimal" min="0" step="100" value="1000"><span>만 엔</span></div>
+          </div>
+          <div class="field">
+            <label for="l-rate">금리 (연)</label>
+            <div class="unit-input"><input id="l-rate" name="rate" type="number" inputmode="decimal" min="0" step="0.05" value="1.0"><span>%</span></div>
+          </div>
+          <div class="field">
+            <label for="l-years">상환 기간</label>
+            <div class="unit-input"><input id="l-years" name="years" type="number" inputmode="decimal" min="0" step="1" value="35" max="50"><span>년</span></div>
+          </div>
+          <div class="field">
+            <label for="l-ratio">상환 부담률</label>
+            <div class="unit-input"><select id="l-ratio" name="ratio"><option value="20">20</option><option value="25" selected>25</option><option value="30">30</option><option value="35">35</option></select><span>%</span></div>
+          </div>
+        </div>
+        <dl class="loan-result" aria-live="polite">
+          <div class="is-main"><dt>살 수 있는 매물 가격 (예상)</dt><dd><output data-out="price">—</output>만 엔</dd></div>
+          <div><dt>대출 금액 (예상)</dt><dd><output data-out="loan">—</output>만 엔</dd></div>
+          <div><dt>월 상환액</dt><dd><output data-out="monthly">—</output>엔</dd></div>
+          <div><dt>연소득 대비 대출 배율</dt><dd><output data-out="multiple">—</output>배</dd></div>
+        </dl>
+      </div>
+      <p class="tool-note">일본 금융기관의 엔화 대출을 가정했습니다. 연소득 × 상환 부담률을 연간 상환액의 상한으로 보고, 원리금균등상환·고정금리·보너스 상환 없음으로 대출 금액을 역산했습니다. 매물 가격은 「대출 금액 + 자기 자금」에서 부대 비용(매물 가격의 약 7%로 가정)을 뺀 참고치입니다. 금융기관 심사에서는 실제 금리보다 높은 「심사 금리」로 계산하는 경우가 많고, 다른 대출·근속 연수·체류 자격·매물 평가에 따라서도 대출 금액이 달라집니다. 대출 가능 여부나 조건을 약속하는 것이 아닙니다.</p>
+    </form>
+
+    <form class="tool-card" data-rental novalidate>
+      <h3>임대용 건물을 사면 매년 얼마가 남을까?</h3>
+      <div class="loan">
+        <div class="loan-inputs">
+          <div class="field">
+            <label for="r-price">매물 가격</label>
+            <div class="unit-input"><input id="r-price" name="price" type="number" inputmode="decimal" min="0" step="500" value="10000"><span>만 엔</span></div>
+          </div>
+          <div class="field">
+            <label for="r-cash">자기 자금</label>
+            <div class="unit-input"><input id="r-cash" name="cash" type="number" inputmode="decimal" min="0" step="100" value="1000"><span>만 엔</span></div>
+          </div>
+          <div class="field">
+            <label for="r-yield">표면 수익률</label>
+            <div class="unit-input"><input id="r-yield" name="yield" type="number" inputmode="decimal" min="0" step="0.1" value="6.0"><span>%</span></div>
+          </div>
+          <div class="field">
+            <label for="r-rate">금리 (연)</label>
+            <div class="unit-input"><input id="r-rate" name="rate" type="number" inputmode="decimal" min="0" step="0.05" value="2.0"><span>%</span></div>
+          </div>
+          <div class="field">
+            <label for="r-years">상환 기간</label>
+            <div class="unit-input"><input id="r-years" name="years" type="number" inputmode="decimal" min="0" step="1" value="30"><span>년</span></div>
+          </div>
+          <div class="field">
+            <label for="r-vacancy">공실률</label>
+            <div class="unit-input"><input id="r-vacancy" name="vacancy" type="number" inputmode="decimal" min="0" step="1" value="10"><span>%</span></div>
+          </div>
+          <div class="field">
+            <label for="r-expense">경비율 (임대 수입 대비)</label>
+            <div class="unit-input"><input id="r-expense" name="expense" type="number" inputmode="decimal" min="0" step="1" value="20"><span>%</span></div>
+          </div>
+        </div>
+        <dl class="loan-result" aria-live="polite">
+          <div class="is-main"><dt>연간 남는 현금 (세전)</dt><dd><output data-out="cf">—</output>만 엔</dd></div>
+          <div><dt>월평균 남는 현금</dt><dd><output data-out="cfm">—</output>만 엔</dd></div>
+          <div><dt>임대 수입 (공실 반영)</dt><dd><output data-out="rent">—</output>만 엔/년</dd></div>
+          <div><dt>경비</dt><dd><output data-out="cost">—</output>만 엔/년</dd></div>
+          <div><dt>대출 상환</dt><dd><output data-out="debt">—</output>만 엔/년</dd></div>
+          <div><dt>상환 비율 (상환÷임대 수입)</dt><dd><output data-out="dsr">—</output>%</dd></div>
+          <div><dt>실질 수익률 (경비 차감 후÷총투자액)</dt><dd><output data-out="noi">—</output>%</dd></div>
+          <div><dt>10년 후 대출 잔액</dt><dd><output data-out="bal10">—</output>만 엔</dd></div>
+        </dl>
+      </div>
+      <p class="tool-note">임대 수입 = 매물 가격 × 표면 수익률 × (1 − 공실률), 경비 = 임대 수입 × 경비율(관리비·수선비·고정자산세·보험 등)로 계산한 참고치입니다. 대출 금액은 매물 가격에 부대 비용(약 7%로 가정)을 더한 금액에서 자기 자금을 빼서 계산했습니다(원리금균등상환·고정금리, 일본 금융기관의 엔화 대출 가정). 소득세·주민세, 임대료 하락, 대규모 수선, 금리 변동은 포함하지 않습니다. 향후 수익이나 대출 가능 여부·조건을 약속하는 것이 아닙니다.</p>
+    </form>
+
+    <!-- assets/data/market.json (tools/fetch_market.py 로 작성) 을 읽을 수 있을 때만 표시 -->
+    <div class="tool-card chart" data-market data-src="../assets/data/market.json" hidden>
+      <h3>가치도키 · 하루미 · 도요스 · 아리아케<br>중고 맨션 평당 가격</h3>
+      <ul class="chart-legend"></ul>
+      <p class="chart-unit">만 엔/평 (분기별 중앙값, 1평 = 약 3.3㎡)</p>
+      <div class="chart-frame">
+        <div class="chart-plot"></div>
+        <div class="chart-tip" hidden></div>
+      </div>
+      <details class="chart-details">
+        <summary>표로 보기</summary>
+        <div class="chart-table-wrap"><table class="chart-table"></table></div>
+      </details>
+      <p class="tool-note">출처: 일본 국토교통성 <a href="https://www.reinfolib.mlit.go.jp/" target="_blank" rel="noopener">부동산정보 라이브러리</a>(不動産情報ライブラリ). 「부동산 거래가격 정보」「성약가격 정보」(일본 국토교통성)를 바탕으로 이 사이트에서 작성 (지역·분기별 평당 가격 중앙값을 산출, <span data-updated></span> 업데이트). 타워맨션에 한정하지 않고 각 지역의 중고 맨션 거래를 모두 포함합니다. 거래 건수가 3건 미만인 분기는 표시하지 않습니다. 과거 거래를 집계한 것으로, 향후 가격을 나타내지 않습니다. 이 서비스는 일본 국토교통성 부동산정보 라이브러리의 API 기능을 사용하지만, 제공 정보의 최신성·정확성·완전성 등을 보장하지 않습니다. <span lang="ja">（このサービスは、国土交通省の不動産情報ライブラリのAPI機能を使用していますが、提供情報の最新性、正確性、完全性等が保証されたものではありません。）</span></p>
+    </div>
+  </div>
+</section>
+
 <!-- ============================== FREE DOWNLOAD ============================== -->
 <section class="band--soft" id="gift">
   <div class="wrap">
@@ -634,5 +743,6 @@
 </footer>
 
 <script src="../assets/form.js" defer></script>
+<script src="../assets/tools.js" defer></script>
 </body>
 </html>
