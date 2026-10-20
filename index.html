@@ -252,6 +252,64 @@
   </div>
 </section>
 
+<!-- ============================== 数字で確かめる（assets/tools.js） ============================== -->
+<section class="section" id="data">
+  <div class="wrap stack gap-42">
+    <div class="stack gap-16">
+      <p class="eyebrow">Data</p>
+      <h2 class="h2">数字で確かめる</h2>
+      <p class="lead">相談の前に、ご自身の数字で確かめてみてください。</p>
+    </div>
+
+    <form class="tool-card" data-loan novalidate>
+      <h3>住宅ローンのかんたん試算</h3>
+      <div class="loan">
+        <div class="loan-inputs">
+          <div class="field">
+            <label for="l-amount">借入額</label>
+            <div class="unit-input"><input id="l-amount" name="amount" type="number" inputmode="decimal" min="0" step="100" value="6000"><span>万円</span></div>
+          </div>
+          <div class="field">
+            <label for="l-rate">金利（年）</label>
+            <div class="unit-input"><input id="l-rate" name="rate" type="number" inputmode="decimal" min="0" step="0.05" value="1.0"><span>%</span></div>
+          </div>
+          <div class="field">
+            <label for="l-years">返済期間</label>
+            <div class="unit-input"><input id="l-years" name="years" type="number" inputmode="numeric" min="1" max="50" step="1" value="35"><span>年</span></div>
+          </div>
+          <div class="field">
+            <label for="l-income">年収<span class="opt">任意</span></label>
+            <div class="unit-input"><input id="l-income" name="income" type="number" inputmode="decimal" min="0" step="50" value="1200"><span>万円</span></div>
+          </div>
+        </div>
+        <dl class="loan-result" aria-live="polite">
+          <div class="is-main"><dt>毎月の返済額</dt><dd><output data-out="monthly">—</output>円</dd></div>
+          <div><dt>総返済額</dt><dd><output data-out="total">—</output>万円</dd></div>
+          <div><dt>うち利息</dt><dd><output data-out="interest">—</output>万円</dd></div>
+          <div><dt>返済負担率（年収比）</dt><dd><output data-out="ratio">—</output>%</dd></div>
+        </dl>
+      </div>
+      <p class="tool-note">元利均等返済・固定金利・ボーナス返済なしとした場合の目安です。金利は入力例で、実際の金利・借入の可否・返済額は金融機関の審査と商品によって異なります。融資の可否や条件をお約束するものではありません。</p>
+    </form>
+
+    <!-- assets/data/market.json（tools/fetch_market.py で作成）が読めたときだけ表示 -->
+    <div class="tool-card chart" data-market data-src="assets/data/market.json" hidden>
+      <h3>勝どき・晴海・豊洲・有明<br>中古マンションの坪単価</h3>
+      <ul class="chart-legend"></ul>
+      <p class="chart-unit">万円/坪（四半期ごとの中央値）</p>
+      <div class="chart-frame">
+        <div class="chart-plot"></div>
+        <div class="chart-tip" hidden></div>
+      </div>
+      <details class="chart-details">
+        <summary>表で見る</summary>
+        <div class="chart-table-wrap"><table class="chart-table"></table></div>
+      </details>
+      <p class="tool-note">出典：国土交通省 <a href="https://www.reinfolib.mlit.go.jp/" target="_blank" rel="noopener">不動産情報ライブラリ</a>。「不動産取引価格情報」「成約価格情報」（国土交通省）をもとに当サイトで作成（地区・四半期ごとに坪単価の中央値を算出。<span data-updated></span> 更新）。タワーマンションに限らず、各地区の中古マンション等の取引をすべて含みます。件数が3件未満の四半期は表示していません。過去の取引の集計であり、将来の価格を示すものではありません。このサービスは、国土交通省の不動産情報ライブラリのAPI機能を使用していますが、提供情報の最新性、正確性、完全性等が保証されたものではありません。</p>
+    </div>
+  </div>
+</section>
+
 <!-- ============================== 無料特典 ============================== -->
 <section class="band--soft" id="gift">
   <div class="wrap">
@@ -614,5 +672,6 @@
 </footer>
 
 <script src="assets/form.js" defer></script>
+<script src="assets/tools.js" defer></script>
 </body>
 </html>

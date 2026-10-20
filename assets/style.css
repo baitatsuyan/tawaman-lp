@@ -465,3 +465,74 @@ html[lang="ko"] .final h2 { font-size: 40px; }
   .transfer-table > div { flex-direction: column; gap: 2px; }
   .transfer-table dt { width: auto; }
 }
+
+/* ---------- 数字で確かめる（assets/tools.js） ---------- */
+
+.tool-card {
+  background: var(--card); border: 1px solid var(--line);
+  padding: 40px 44px; display: flex; flex-direction: column; gap: 24px;
+}
+.tool-card h3 { font-size: 24px; line-height: 1.6; }
+html[lang="ko"] .tool-card h3 { font-size: 23px; }
+.tool-note { margin: 0; font-size: 13px; line-height: 1.9; color: var(--ink-mute); }
+
+/* 住宅ローン試算 */
+.loan { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
+.loan-inputs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 20px; align-content: start; }
+.unit-input { display: flex; align-items: center; gap: 8px; }
+.unit-input input { font-family: inherit; font-size: 16px; color: var(--ink); border: 1px solid var(--line-dark); background: #FCFBF8; min-height: 48px; padding: 0 12px; width: 100%; text-align: right; }
+.unit-input span { font-size: 14px; color: var(--ink-soft); white-space: nowrap; min-width: 2.6em; }
+.loan-result { background: var(--card-alt); border: 1px solid var(--line-soft); padding: 24px 26px; margin: 0; display: flex; flex-direction: column; }
+.loan-result > div { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line-soft); }
+.loan-result > div:last-child { border-bottom: none; }
+.loan-result dt { font-size: 14px; color: var(--ink-soft); word-break: auto-phrase; }
+html[lang="ko"] .loan-result dt { word-break: keep-all; }
+.loan-result dd { margin: 0; font-size: 15px; color: var(--ink-soft); text-align: end; white-space: nowrap; }
+.loan-result dd output { font-family: var(--serif); font-size: 26px; font-weight: 700; color: var(--ink); margin-right: 4px; }
+.loan-result .is-main dd output { font-size: 34px; }
+
+/* 坪単価グラフ（系列色は 4 色の固定順。色だけに頼らないよう右端ラベル・凡例・表を併用） */
+.chart { --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; }
+.chart-legend { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 14px; color: var(--ink-soft); }
+.chart-legend li { display: flex; align-items: center; gap: 8px; }
+.chart-swatch { display: inline-block; width: 16px; height: 3px; border-radius: 2px; flex-shrink: 0; }
+.chart-swatch.s1 { background: var(--s1); } .chart-swatch.s2 { background: var(--s2); }
+.chart-swatch.s3 { background: var(--s3); } .chart-swatch.s4 { background: var(--s4); }
+.chart-unit { font-size: 12px; color: var(--ink-mute); margin: 0 0 -12px; }
+.chart-frame { position: relative; }
+.chart-plot { width: 100%; touch-action: pan-y; }
+.chart-plot svg { display: block; overflow: visible; }
+.chart-grid { stroke: var(--line-soft); stroke-width: 1; }
+.chart-axis { stroke: var(--line-dark); stroke-width: 1; }
+.chart-tick { font-size: 12px; fill: var(--ink-mute); font-family: var(--sans); }
+.chart-label { font-size: 13px; fill: var(--ink-soft); font-family: var(--sans); }
+.chart-line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.chart-line.s1 { stroke: var(--s1); } .chart-line.s2 { stroke: var(--s2); }
+.chart-line.s3 { stroke: var(--s3); } .chart-line.s4 { stroke: var(--s4); }
+.chart-dot { stroke: var(--card); stroke-width: 2; }
+.chart-dot.s1 { fill: var(--s1); } .chart-dot.s2 { fill: var(--s2); }
+.chart-dot.s3 { fill: var(--s3); } .chart-dot.s4 { fill: var(--s4); }
+.chart-pt.s1 { fill: var(--s1); } .chart-pt.s2 { fill: var(--s2); }
+.chart-pt.s3 { fill: var(--s3); } .chart-pt.s4 { fill: var(--s4); }
+.chart-cross { stroke: var(--ink-mute); stroke-width: 1; stroke-dasharray: 3 3; }
+.chart-tip {
+  position: absolute; pointer-events: none; background: var(--card); border: 1px solid var(--line-dark);
+  box-shadow: 0 4px 16px rgba(20, 22, 27, 0.08); padding: 10px 14px; font-size: 13px; line-height: 1.6; min-width: 180px;
+}
+.chart-tip-title { font-weight: 700; margin-bottom: 4px; }
+.chart-tip-row { display: grid; grid-template-columns: 16px 1fr auto auto; align-items: center; gap: 8px; color: var(--ink-soft); }
+.chart-tip-row b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.chart-tip-row small, .chart-table small { color: var(--ink-mute); font-size: 11px; }
+.chart-details summary { cursor: pointer; font-size: 14px; color: var(--accent-ink); }
+.chart-table-wrap { overflow-x: auto; margin-top: 12px; }
+.chart-table { border-collapse: collapse; font-size: 13px; white-space: nowrap; }
+.chart-table th, .chart-table td { padding: 6px 12px; border-bottom: 1px solid var(--line-soft); text-align: right; font-weight: 400; }
+.chart-table th[scope="row"], .chart-table thead th:first-child { text-align: left; position: sticky; left: 0; background: var(--card); }
+.chart-table td small { display: block; }
+
+@media (max-width: 1000px) {
+  .tool-card { padding: 28px 22px; }
+  .loan { grid-template-columns: 1fr; gap: 24px; }
+  .loan-result { padding: 16px 20px; }
+  .loan-result .is-main dd output { font-size: 28px; }
+}
