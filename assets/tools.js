@@ -1,6 +1,7 @@
 /* ==========================================================================
    「数字で確かめる」欄（日本語版 / 韓国語版で共有）
    - 年収から買える物件価格の目安（返済負担率から借入額を逆算。元利均等・固定金利）
+   - 一棟アパートの収益シミュレーション（税引前の手残り・返済比率・10年後の残債）
    - 勝どき・晴海・豊洲・有明の坪単価グラフ（assets/data/market.json を描画）
      market.json は tools/fetch_market.py で作る。読めなければ欄ごと非表示のまま。
    ========================================================================== */
@@ -49,6 +50,61 @@
     loan.addEventListener('input', calc);
     loan.addEventListener('submit', function (e) { e.preventDefault(); });
     calc();
+  }
+
+  /* ---------- 一棟アパートの収益シミュレーション ---------- */
+
+  var rental = document.querySelector('[data-rental]');
+  if (rental) {
+    var rOut = function (name) { return rental.querySelector('[data-out="' + name + '"]'); };
+    var rNum = function (name) {
+      var v = parseFloat(String(rental.elements[name].value).replace(/,/g, ''));
+      return isFinite(v) ? v : NaN;
+    };
+    var man = function (yen) { return fmt.format(Math.round(yen / 10000)); };   // 円 → 万円表示
+    var BUY_COST = 0.07;   // 購入時の諸費用（物件価格に対する割合の仮定）
+
+    var simulate = function () {
+      var price = rNum('price') * 10000;
+      var cash = Math.max(0, rNum('cash') || 0) * 10000;
+      var gross = rNum('yield') / 100;
+      var rate = rNum('rate') / 100 / 12;
+      var months = Math.round(rNum('years') * 12);
+      var vacancy = Math.min(1, Math.max(0, (rNum('vacancy') || 0) / 100));
+      var expenseRate = Math.max(0, (rNum('expense') || 0) / 100);
+
+      var keys = ['cf', 'cfm', 'rent', 'cost', 'debt', 'dsr', 'noi', 'bal10'];
+      var ok = price > 0 && gross >= 0 && rate >= 0 && months > 0;
+      if (!ok) { keys.forEach(function (k) { rOut(k).textContent = '—'; }); return; }
+
+      var total = price * (1 + BUY_COST);              // 総投資額（物件価格＋諸費用）
+      var principal = Math.max(0, total - cash);       // 借入額
+      var monthly = principal === 0 ? 0 : rate === 0 ? principal / months
+        : principal * rate / (1 - Math.pow(1 + rate, -months));
+      var rent = price * gross * (1 - vacancy);
+      var cost = rent * expenseRate;
+      var debt = monthly * 12;
+      var cf = rent - cost - debt;
+
+      // 10年後（120回返済後）の残高。返済期間が10年以下なら 0
+      var k = Math.min(120, months);
+      var bal = rate === 0 ? principal - monthly * k
+        : principal * Math.pow(1 + rate, k) - monthly * (Math.pow(1 + rate, k) - 1) / rate;
+
+      rOut('cf').textContent = man(cf);
+      rOut('cfm').textContent = fmt.format(Math.round(cf / 12 / 1000) / 10);   // 0.1万円単位
+      rOut('rent').textContent = man(rent);
+      rOut('cost').textContent = man(cost);
+      rOut('debt').textContent = man(debt);
+      rOut('dsr').textContent = rent > 0 ? (debt / rent * 100).toFixed(1) : '—';
+      rOut('noi').textContent = ((rent - cost) / total * 100).toFixed(2);
+      rOut('bal10').textContent = man(Math.max(0, bal));
+      rental.querySelector('.is-main').classList.toggle('is-negative', cf < 0);
+    };
+
+    rental.addEventListener('input', simulate);
+    rental.addEventListener('submit', function (e) { e.preventDefault(); });
+    simulate();
   }
 
   /* ---------- 坪単価グラフ ---------- */

@@ -490,6 +490,7 @@ html[lang="ko"] .loan-result dt { word-break: keep-all; }
 .loan-result dd { margin: 0; font-size: 15px; color: var(--ink-soft); text-align: end; white-space: nowrap; }
 .loan-result dd output { font-family: var(--serif); font-size: 26px; font-weight: 700; color: var(--ink); margin-right: 4px; }
 .loan-result .is-main dd output { font-size: 34px; }
+.loan-result .is-negative dd output { color: var(--required); }
 
 /* 坪単価グラフ（系列色は 4 色の固定順。色だけに頼らないよう右端ラベル・凡例・表を併用） */
 .chart { --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; }
