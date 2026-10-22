@@ -24,8 +24,6 @@
 
 公開URL: https://tawamanoya-miyama.netlify.app/ （Netlify）
 
-`aoyama/` は別会社（青山綜合地所）の独立したLPで、このサイトには含まれません（`aoyama/README.md` を参照）。
-
 デプロイ: GitHub の `main` に push すると Netlify が自動で公開します（Netlify とリポジトリの連携後）。手元から直接公開する場合:
 
 ```bash

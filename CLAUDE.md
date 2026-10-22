@@ -4,8 +4,6 @@
 公開URL: https://tawamanoya-miyama.netlify.app/ ／ 特商法ページ: `tokushoho/index.html`（日本語のみ）。
 構成・フォーム連携の詳細は README.md を参照。
 
-`aoyama/` は別会社（青山綜合地所）の独立したLPで、別の Netlify サイトから公開する。このファイルのルールは `aoyama/` には適用しない（`aoyama/CLAUDE.md` を参照）。ファイルも共有しない。
-
 ## 公開の流れ
 
 - `main` に push すると Netlify が自動デプロイする（`netlify.toml`：`python3 tools/build.py` で `dist/` に公開用ファイルだけを集める）。
