@@ -6,7 +6,7 @@
 .
 ├── index.html          日本語版（/）
 ├── ko/index.html       韓国語版（/ko/）
-├── aoyama/             青山綜合地所版（/aoyama/）。日本のお客様向け・特典はLINEで配布
+├── aoyama/             青山綜合地所版（別サイト tawamanoya-aoyama）。日本のお客様向け・特典はLINEで配布
 │   └── tokushoho/      同 特定商取引法に基づく表記
 ├── assets/
 │   ├── style.css       共通スタイル（両言語で共有）
@@ -59,7 +59,13 @@ python3 -m http.server 8000
 
 ## 青山綜合地所版（`aoyama/`）
 
-日本のお客様だけを対象にした別バージョン。日本語版をもとに、次の点を変えています。
+日本のお客様だけを対象にした別バージョン。公開先は別の Netlify サイト https://tawamanoya-aoyama.netlify.app/ で、`aoyama/` がサイトのルートになる。
+
+- ビルド：`python3 tools/build.py aoyama`（`../assets/` などの相対パスはビルド時に書き換える。特典PDFの `assets/dl/` は含めない）
+- Netlify：同じリポジトリから2つめのサイトを作り、サイト名を `tawamanoya-aoyama`、環境変数 `SITE=aoyama` を設定する（netlify.toml は共通）
+- ローカル確認：`python3 tools/build.py aoyama && python3 -m http.server 8000 -d dist`
+
+日本語版をもとに、次の点を変えています。
 
 - 連携する宅建業者は株式会社青山綜合地所（Miyama & Jung Partners の記載はなし）。特商法ページも `aoyama/tokushoho/` に別に用意。
 - 韓国語版への切り替え・YouTube 動画の欄はなし。

@@ -1,12 +1,13 @@
 # タワマン大家 個別相談 LP
 
-日本語版（`index.html`）と韓国語版（`ko/index.html`）の静的LP。別に、日本のお客様向けの青山綜合地所版（`aoyama/`）がある。HTML＋CSS＋素のJSのみ、ビルド不要。
+日本語版（`index.html`）と韓国語版（`ko/index.html`）の静的LP。別に、日本のお客様向けの青山綜合地所版（`aoyama/`、別サイト https://tawamanoya-aoyama.netlify.app/ ）がある。HTML＋CSS＋素のJSのみ、ビルド不要。
 公開URL: https://tawamanoya-miyama.netlify.app/ ／ 特商法ページ: `tokushoho/index.html`（日本語のみ）。
 構成・フォーム連携の詳細は README.md を参照。
 
 ## 公開の流れ
 
 - `main` に push すると Netlify が自動デプロイする（`netlify.toml`：`python3 tools/build.py` で `dist/` に公開用ファイルだけを集める）。
+- 青山綜合地所版は別の Netlify サイト（環境変数 `SITE=aoyama`）で、`python3 tools/build.py aoyama` が `aoyama/` をルートにして `dist/` を作る。
 - README.md・`tools/`・`CLAUDE.md` は公開されない。新しく公開したいファイルやフォルダは `tools/build.py` の `PUBLIC` に追加する。
 - 確認用サーバー：`python -m http.server 8000`（http://localhost:8000/ と /ko/）。
 
