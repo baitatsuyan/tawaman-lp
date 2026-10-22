@@ -1,51 +1,28 @@
 /* ==========================================================================
-   申込フォーム → Google フォーム送信（日本語版 / 韓国語版 / 青山綜合地所版で共有）
+   申込フォーム → Google フォーム送信（日本語版 / 韓国語版で共有）
 
    ページ遷移せずに formResponse へ POST する。Google 側は CORS を返さないため
    no-cors で送り、レスポンスの中身は確認できない（ネットワークエラーのみ検知）。
    ========================================================================== */
 
 (function () {
-  // data-gform の値ごとの送信先。属性値が空なら default（日本語版・韓国語版）。
-  // 設問を作り直した場合は entry ID が変わるので、公開フォームから取り直すこと
-  var CONFIG = {
-    'default': {
-      action: 'https://docs.google.com/forms/d/e/1FAIpQLSdBZ_p0uI_Z5CzauZ4aS6SXSIcKGZ6c0a2lWirK2TSx_j1F9Q/formResponse',
-      // LP の name 属性 → Google フォームの entry ID
-      entry: {
-        name:      'entry.2108506434',
-        email:     'entry.1658199166',
-        residency: 'entry.482455744',
-        income:    'entry.1567298018',
-        equity:    'entry.658247390',
-        holdings:  'entry.1541361398',
-        timing:    'entry.802143010',
-        topics:    'entry.1638083950',
-        message:   'entry.689228946',
-        consult:   'entry.262546002',
-        consent:   'entry.864377852',
-        lang:      'entry.429244145'
-      }
-    },
-    // 青山綜合地所版（aoyama/）。tools/setup-google-form-aoyama.gs で作ったフォームの値を入れる
-    // TODO: action と entry ID を差し替えるまで、送信はエラーになる（回答が黙って消えないように）
-    'aoyama': {
-      action: '',
-      entry: {
-        name:       'entry.TODO',
-        email:      'entry.TODO',
-        occupation: 'entry.TODO',
-        income:     'entry.TODO',
-        equity:     'entry.TODO',
-        holdings:   'entry.TODO',
-        timing:     'entry.TODO',
-        topics:     'entry.TODO',
-        message:    'entry.TODO',
-        consult:    'entry.TODO',
-        consent:    'entry.TODO',
-        lang:       'entry.TODO'
-      }
-    }
+  var FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdBZ_p0uI_Z5CzauZ4aS6SXSIcKGZ6c0a2lWirK2TSx_j1F9Q/formResponse';
+
+  // LP の name 属性 → Google フォームの entry ID
+  // 設問を作り直した場合は ID が変わるので、公開フォームから取り直すこと
+  var ENTRY = {
+    name:      'entry.2108506434',
+    email:     'entry.1658199166',
+    residency: 'entry.482455744',
+    income:    'entry.1567298018',
+    equity:    'entry.658247390',
+    holdings:  'entry.1541361398',
+    timing:    'entry.802143010',
+    topics:    'entry.1638083950',
+    message:   'entry.689228946',
+    consult:   'entry.262546002',
+    consent:   'entry.864377852',
+    lang:      'entry.429244145'
   };
 
   // 特典PDF。HTML には書かず、送信完了後にだけリンクを生成する。
@@ -54,10 +31,6 @@
 
   var form = document.querySelector('form[data-gform]');
   if (!form) return;
-
-  var config = CONFIG[form.dataset.gform || 'default'];
-  var FORM_ACTION = config.action;
-  var ENTRY = config.entry;
 
   var button = form.querySelector('button[type="submit"]');
   var status = form.querySelector('.form-status');
@@ -113,19 +86,11 @@
     status.textContent = '';
     status.className = 'form-status';
 
-    // 送信先が未設定なら送らずにエラー表示（no-cors では失敗を検知できないため）
-    var sent = FORM_ACTION && ENTRY.lang.indexOf('TODO') < 0
-      ? fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: body })
-      : Promise.reject(new Error('form action is not configured'));
-
-    sent
+    fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: body })
       .then(function () {
-        // 青山綜合地所版は LINE で特典を渡すので、ダウンロードリンクがない
         var link = thanks.querySelector('[data-download]');
-        if (link) {
-          link.href = DOWNLOAD_URL;
-          link.setAttribute('download', link.dataset.download);
-        }
+        link.href = DOWNLOAD_URL;
+        link.setAttribute('download', link.dataset.download);
         form.hidden = true;
         thanks.hidden = false;
         thanks.scrollIntoView({ behavior: 'smooth', block: 'start' });

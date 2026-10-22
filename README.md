@@ -6,8 +6,6 @@
 .
 ├── index.html          日本語版（/）
 ├── ko/index.html       韓国語版（/ko/）
-├── aoyama/             青山綜合地所版（別サイト tawamanoya-aoyama）。日本のお客様向け・特典はLINEで配布
-│   └── tokushoho/      同 特定商取引法に基づく表記
 ├── assets/
 │   ├── style.css       共通スタイル（両言語で共有）
 │   ├── form.js         フォーム送信・特典ダウンロード
@@ -17,7 +15,6 @@
 │   ├── tower.jpg       プロフィール写真（タワーマンション）
 │   └── seminar-cover.jpg セミナー資料の表紙
 ├── tools/setup-google-form.gs  Google フォームの設問作成スクリプト
-├── tools/setup-google-form-aoyama.gs  同（青山綜合地所版。別フォーム）
 ├── tools/build.py      公開用ファイルを dist/ に集める
 ├── tools/fetch_market.py 坪単価グラフのデータを不動産情報ライブラリから取得
 ├── netlify.toml        Netlify のビルド設定（GitHub 連携時）
@@ -26,6 +23,8 @@
 ```
 
 公開URL: https://tawamanoya-miyama.netlify.app/ （Netlify）
+
+`aoyama/` は別会社（青山綜合地所）の独立したLPで、このサイトには含まれません（`aoyama/README.md` を参照）。
 
 デプロイ: GitHub の `main` に push すると Netlify が自動で公開します（Netlify とリポジトリの連携後）。手元から直接公開する場合:
 
@@ -56,30 +55,6 @@ python3 -m http.server 8000
 動画のサムネイルとタイトルは YouTube が自動で表示するので、こちら側で用意する必要はありません。
 
 ---
-
-## 青山綜合地所版（`aoyama/`）
-
-日本のお客様だけを対象にした別バージョン。公開先は別の Netlify サイト https://tawamanoya-aoyama.netlify.app/ で、`aoyama/` がサイトのルートになる。
-
-- ビルド：`python3 tools/build.py aoyama`（`../assets/` などの相対パスはビルド時に書き換える。特典PDFの `assets/dl/` は含めない）
-- Netlify：同じリポジトリから2つめのサイトを作り、サイト名を `tawamanoya-aoyama`、環境変数 `SITE=aoyama` を設定する（netlify.toml は共通）
-- ローカル確認：`python3 tools/build.py aoyama && python3 -m http.server 8000 -d dist`
-
-日本語版をもとに、次の点を変えています。
-
-- 連携する宅建業者は株式会社青山綜合地所（Miyama & Jung Partners の記載はなし）。特商法ページも `aoyama/tokushoho/` に別に用意。
-- 韓国語版への切り替え・YouTube 動画の欄はなし。
-- フォームは「国籍・在留資格」の代わりに「ご職業」を聞く。FAQ も日本在住の会社員向け（住宅ローンとの順番、勤務先の就業規則、確定申告など）。
-- 特典は PDF のダウンロードではなく、LINE公式アカウント「BAI Capital」の友だち追加でお渡しする（PDF は LINE 側の友だち追加時のあいさつメッセージなどで送る）。
-
-公開前に差し替えるもの（`grep -rn TODO aoyama assets/form.js`）:
-
-| 箇所 | やること |
-|---|---|
-| `assets/form.js` の `CONFIG.aoyama` | `tools/setup-google-form-aoyama.gs` で新しい Google フォームを作り、formResponse の URL と entry ID を入れる。**入れるまで送信はエラーになる**（回答が黙って消えないようにしている） |
-| `aoyama/index.html` の LINE ボタン | `https://lin.ee/TODO` を BAI Capital の友だち追加URLに |
-| `aoyama/tokushoho/index.html` | 代表者名・電話の受付時間 |
-| プライバシーポリシーのリンク | 青山綜合地所のポリシーURL（同社サイトに見当たらないため要確認） |
 
 ## フォーム連携
 

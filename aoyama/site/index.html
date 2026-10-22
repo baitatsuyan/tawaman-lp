@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
@@ -131,7 +131,7 @@
     <div class="profile">
 
       <div class="profile-aside">
-        <img class="profile-photo" src="../assets/tower.jpg" alt="タワーマンション" width="1232" height="1636" loading="lazy">
+        <img class="profile-photo" src="assets/tower.jpg" alt="タワーマンション" width="1232" height="1636" loading="lazy">
         <a class="btn-outline" href="https://x.com/Hackgan" target="_blank" rel="noopener">X ／ @Hackgan をフォロー</a>
       </div>
 
@@ -335,8 +335,8 @@
       <p class="tool-note">家賃収入＝物件価格×表面利回り×（1−空室率）、経費＝家賃収入×経費率（管理費・修繕費・固定資産税・保険など）とした目安です。借入額は、物件価格に諸費用（約7%と仮定）を加えた額から自己資金を差し引いて計算しています（元利均等返済・固定金利）。所得税・住民税、家賃の下落、大規模修繕、金利の変動は含みません。将来の収益や融資の可否・条件をお約束するものではありません。</p>
     </form>
 
-    <!-- ../assets/data/market.json（tools/fetch_market.py で作成）が読めたときだけ表示 -->
-    <div class="tool-card chart" data-market data-src="../assets/data/market.json" hidden>
+    <!-- assets/data/market.json（tools/fetch_market.py で作成）が読めたときだけ表示 -->
+    <div class="tool-card chart" data-market data-src="assets/data/market.json" hidden>
       <h3>勝どき・晴海・豊洲・有明<br>中古マンションの坪単価</h3>
       <ul class="chart-legend"></ul>
       <p class="chart-unit">万円/坪（四半期ごとの中央値）</p>
@@ -396,7 +396,7 @@
       </div>
 
       <aside class="gift-aside">
-        <img src="../assets/seminar-cover.jpg" alt="セミナー資料の表紙" width="2000" height="1125" loading="lazy">
+        <img src="assets/seminar-cover.jpg" alt="セミナー資料の表紙" width="2000" height="1125" loading="lazy">
         <p class="gift-meta">PDF ／ 全31ページ<br>アンケート回答後、LINEの友だち追加でお届け</p>
         <a class="btn btn--block" href="#form">無料で受け取る</a>
       </aside>
@@ -482,7 +482,7 @@
 
     <!-- 送信処理は assets/form.js（Google フォームへ非同期送信） -->
     <form class="formcard" action="#" method="post" novalidate
-          data-gform="aoyama" data-lang="日本語"
+          data-gform data-lang="日本語"
           data-msg-invalid="未入力の必須項目があります。赤く表示された項目をご確認ください。"
           data-msg-sending="送信しています…"
           data-msg-submit="回答して特典を受け取る"
@@ -703,7 +703,7 @@
   </div>
 </footer>
 
-<script src="../assets/form.js" defer></script>
-<script src="../assets/tools.js" defer></script>
+<script src="assets/form.js" defer></script>
+<script src="assets/tools.js" defer></script>
 </body>
 </html>

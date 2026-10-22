@@ -1,9 +1,8 @@
 /**
- * 青山綜合地所版 LP（aoyama/index.html）の申込フォームと同じ設問を Google フォームに作成するスクリプト
+ * LP（site/index.html）の申込フォームと同じ設問を Google フォームに作成するスクリプト
  *
- * 日本語版・韓国語版（tools/setup-google-form.gs）とは別のフォームを作る。
  * 作成後、公開フォームから formResponse の URL と entry ID を取り、
- * assets/form.js の CONFIG.aoyama に入れること。
+ * site/assets/form.js の FORM_ACTION と ENTRY に入れること。
  *
  * 使い方:
  *   1. Google フォームの編集画面 → 右上「⋮」→「Apps Script」
@@ -13,18 +12,18 @@
  * 注意: 実行するとフォーム内の既存の設問はすべて削除されます。
  *
  * 選択肢の文言は LP 側の value と完全一致している必要があります。
- * 変更する場合は aoyama/index.html の value も同時に直してください。
+ * 変更する場合は site/index.html の value も同時に直してください。
  *
  * 必須チェックは LP 側で行うため、ここでは必須にしていません
  * （フォーム側で必須にすると、不一致があったときに回答が黙って捨てられるため）。
  */
-function setupAoyamaForm() {
+function setupForm() {
   var form = FormApp.getActiveForm();
 
   form.getItems().forEach(function (item) { form.deleteItem(item); });
 
-  form.setTitle('タワマン大家 個別相談 アンケート（青山綜合地所版）');
-  form.setDescription('青山綜合地所版 LP から送信される回答の受付用フォームです。');
+  form.setTitle('タワマン大家 個別相談 アンケート');
+  form.setDescription('LP から送信される回答の受付用フォームです。');
   form.setCollectEmail(false);
   form.setLimitOneResponsePerUser(false);
   form.setAcceptingResponses(true);

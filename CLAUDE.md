@@ -1,13 +1,14 @@
 # タワマン大家 個別相談 LP
 
-日本語版（`index.html`）と韓国語版（`ko/index.html`）の静的LP。別に、日本のお客様向けの青山綜合地所版（`aoyama/`、別サイト https://tawamanoya-aoyama.netlify.app/ ）がある。HTML＋CSS＋素のJSのみ、ビルド不要。
+日本語版（`index.html`）と韓国語版（`ko/index.html`）の静的LP。HTML＋CSS＋素のJSのみ、ビルド不要。
 公開URL: https://tawamanoya-miyama.netlify.app/ ／ 特商法ページ: `tokushoho/index.html`（日本語のみ）。
 構成・フォーム連携の詳細は README.md を参照。
+
+`aoyama/` は別会社（青山綜合地所）の独立したLPで、別の Netlify サイトから公開する。このファイルのルールは `aoyama/` には適用しない（`aoyama/CLAUDE.md` を参照）。ファイルも共有しない。
 
 ## 公開の流れ
 
 - `main` に push すると Netlify が自動デプロイする（`netlify.toml`：`python3 tools/build.py` で `dist/` に公開用ファイルだけを集める）。
-- 青山綜合地所版は別の Netlify サイト（環境変数 `SITE=aoyama`）で、`python3 tools/build.py aoyama` が `aoyama/` をルートにして `dist/` を作る。
 - README.md・`tools/`・`CLAUDE.md` は公開されない。新しく公開したいファイルやフォルダは `tools/build.py` の `PUBLIC` に追加する。
 - 確認用サーバー：`python -m http.server 8000`（http://localhost:8000/ と /ko/）。
 
@@ -35,13 +36,6 @@
   - 体制は「Miyama & Jung Partners が提供し、同社から業務委託を受けたタワマン大家が担当」。
 - **韓国語の用語**（2026年10月のネイティブチェックで確定）：物件＝매물、一棟アパート＝임대용 건물（「아파트」は使わない）、伴走プラン＝월간 자문 플랜、初回＝첫。
 - 韓国語版のフォームには、韓国の個人情報保護法に基づく「国外移転の同意」欄（必須・Google には送信しない）がある。消さない。
-
-## 青山綜合地所版（`aoyama/`）
-
-- 日本語版をもとにした別バージョン。宅建業者は株式会社青山綜合地所で、Miyama & Jung Partners は出さない。韓国語ページ・YouTube 動画（Miyama のコンテンツ）は載せない。
-- 日本語版の文言を直したときは、`aoyama/index.html` にも反映するか確認する（逆も同じ）。上の法務・表現の方針はこちらにも適用する。料金・解約の記載は `aoyama/tokushoho/index.html` と一致させる。
-- 特典は LINE公式アカウント「BAI Capital」の友だち追加で渡す。PDF のリンクは置かない。
-- フォームは日本語版とは別の Google フォーム（`tools/setup-google-form-aoyama.gs`、`assets/form.js` の `CONFIG.aoyama`）。在留資格の代わりに「ご職業」を聞く。value は Google フォームの選択肢と一致させる。
 
 ## デザイン
 
