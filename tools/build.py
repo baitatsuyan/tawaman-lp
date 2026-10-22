@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist"
-PUBLIC = ["index.html", "ko", "tokushoho", "assets", "_headers"]
+PUBLIC = ["index.html", "ko", "tokushoho", "aoyama", "assets", "_headers"]
 
 # Windows では削除直後のフォルダが残ることがあるので、空フォルダが残っても続行する
 shutil.rmtree(DIST, ignore_errors=True)
