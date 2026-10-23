@@ -205,12 +205,6 @@ html[lang="ko"] .concept-card h3 { font-size: 27px; }
 .profile-role { font-size: 15px; line-height: 1.9; color: var(--ink-soft); }
 .profile-sub { font-size: 17px; font-weight: 400; color: var(--ink-mute); }
 
-.btn-outline {
-  display: flex; align-items: center; justify-content: center;
-  min-height: 52px; border: 1px solid var(--line-dark); background: var(--card);
-  font-size: 14px; font-weight: 700; text-decoration: none; color: var(--ink);
-}
-.btn-outline:hover { background: #FBFAF7; color: var(--ink); }
 
 .quote {
   background: var(--deep); color: var(--on-deep);
